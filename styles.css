@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+
+  --gray-hover: #E2E2E2;
+  --gray-active: #C3C3C4;
+  --orange-hover: #FFB655;
+  --orange-default: #FF9C19;
+  --orange-active: #EB8B0B;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#calculator {
+  background-color: black;
+  height: fit-content;
+  width: 400px;
+}
+
+#display {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  justify-content: flex-end;
+  padding: 1rem;
+
+  .display-value {
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 3rem;
+    font-weight: normal;
+  }
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 500px;
+
+  div {
+    display: grid;
+    column-gap: 3px;
+    grid-template-columns: repeat(4, 1fr);
+    height: 100%;
+    width: 100%;
+
+    button {
+      background-color: lightgray;
+      border: none;
+      font-size: 2rem;
+    }
+
+    button:hover {
+      background-color: #E2E2E2;
+      cursor:  pointer;
+    }
+
+    button:active {
+      background-color: var(--gray-active);
+    }
+
+    button:last-child {
+      background-color: var(--orange-default);
+      color: white;
+    }
+
+    button:last-child:hover {
+      background-color:  var(--orange-hover);
+    }
+
+    button:last-child:active {
+      background-color: var(--orange-active);
+    }
+
+    .clear {
+      grid-column: 1 / span 2;
+    }
+
+    .zero {
+      grid-column: 1 / span 3;
+    }
+  }
+}
