@@ -1,14 +1,10 @@
-// sets default current value before calculation
-let currentValue = 0;
+// Define global variables
+let firstNum = 0;
+let secondNum = 0;
+let operator = '';
 
-// calls display number as string
+// Grab the elements from the DOM
 const displayText = document.querySelector('.display-text');
-
-// store display value as integer
-let displayValue = 0;
-
-// store operation performed between currentValue and operantValue
-let operationType = '';
 
 const clear = document.querySelector('.clear');
 const back = document.querySelector('.back');
@@ -30,139 +26,120 @@ const multiply = document.querySelector('.multiply');
 const divide = document.querySelector('.divide');
 const equal = document.querySelector('.equal');
 
+// Add event listeners
 zero.addEventListener('click', () => {
   inputNumber(zero);
-  console.log(currentValue);
 })
-
 
 one.addEventListener('click', function() {
   inputNumber(one);
-  console.log(currentValue);
 });
 
 two.addEventListener('click', function() {
   inputNumber(two);
-  console.log(currentValue);
 });
 
 three.addEventListener('click', function() {
   inputNumber(three);
-  console.log(currentValue);
 });
 
 four.addEventListener('click', function() {
   inputNumber(four);
-  console.log(currentValue);
 });
 
 five.addEventListener('click', function() {
   inputNumber(five);
-  console.log(currentValue);
 });
 
 six.addEventListener('click', function() {
   inputNumber(six);
-  console.log(currentValue);
 });
 
 seven.addEventListener('click', function() {
   inputNumber(seven);
-  console.log(currentValue);
 });
 
 eight.addEventListener('click', function() {
   inputNumber(eight);
-  console.log(currentValue);
 });
 
 nine.addEventListener('click', function() {
   inputNumber(nine);
-  console.log(currentValue);
 });
 
-
 plus.addEventListener('click', function() {
-  // set operation type
-  operationType = plus.innerText;
-  operationPerformed(operationType);
-  console.log(`displayValue: ${displayValue}`);
-  console.log(`currentValue: ${currentValue}`);
-  console.log(`operationType: ${operationType}`);
+  operator = plus.innerText;
+});
+
+minus.addEventListener('click', function() {
+  operator = minus.innerText;
 });
 
 multiply.addEventListener('click', function() {
-  // set operation type
-  operationType = multiply.innerText;
-  operationPerformed(operationType);
-  console.log(`displayValue: ${displayValue}`);
-  console.log(`currentValue: ${currentValue}`);
-  console.log(`operationType: ${operationType}`);
+  operator = multiply.innerText;
+});
+
+divide.addEventListener('click', function() {
+  operator = divide.innerText;
 });
 
 equal.addEventListener('click', function() {
-  displayText.innerText = operationPerformed(operationType);
-  // reset operationType to prevent repeat calculation on multiple clicks
-  operationType = '';
-  console.log(`displayValue: ${displayValue}`);
-  console.log(`currentValue: ${currentValue}`);
-  console.log(`operationType: ${operationType}`);
+  // If you don't have an operation type or first number, the equal button should do nothing
+  if (!operator || !firstNum) {
+    return;
+  }
+
+  displayText.innerText = calculate();
+  // Assign the first number to the result of operationPerformed
+  // so that you can continue calculating with the result
+
+  // Reset the operation type and second number
+  // This is important because when you have the first number, on the next click, you can append numbers to the first one
+  firstNum = displayText.innerText;
+  secondNum = 0;
+  operator = '';
 });
 
 clear.addEventListener('click', function() {
   displayText.innerText = 0;
-  currentValue = 0;
+  firstNum = 0;
+  secondNum = 0;
 })
 
-function inputNumber(num) {
-  // set inputValue to button number
-  let inputValue = parseInt(num.innerText);
-  if (displayText.innerText === '0') {
-    displayValue = inputValue;
-    displayText.innerText = displayValue;
-    console.log('replaced!');
-    console.log(`displayValue: ${displayValue}`);
-    console.log(`currentValue: ${currentValue}`);
-    console.log(`operationType: ${operationType}`);
+// Function definitions
+function inputNumber(input) {
+  const inputNumber = input.innerText;
+
+  // If you don't have an operation type, it means you are entering the first number
+  // Otherwise, you're entering the second number
+  if (!operator) {
+    firstNum += inputNumber;
+    displayText.innerText = parseInt(firstNum);
   } else {
-    // append num to end of displayed text
-    displayText.innerText += inputValue;
-    // change number value of displayed text
-    displayValue = parseInt(displayText.innerText);
-    console.log('appended!');
-    console.log(`displayValue: ${displayValue}`);
-    console.log(`currentValue: ${currentValue}`);
-    console.log(`operationType: ${operationType}`);
+    secondNum += inputNumber;
+    displayText.innerText = parseInt(secondNum);
   }
 }
 
-// detects operation type + uses it after equal sign is clicked
-function operationPerformed(operation) {
-  if (currentValue === 0){
-    currentValue = displayValue;
-    displayText.innerText = 0;
-  } else {
-    switch (operation) {
-      case '+':
-        currentValue += displayValue;
-        console.log(`kanya: ${currentValue}`);
-        displayText.innerText = 0;
-        console.log(`plus`);
-        break;
-      case '-':
-        currentValue -= displayValue;
-        displayText.innerText = 0;
-        break;
-      case '×':
-        currentValue *= displayValue;
-        displayText.innerText = 0;
-        break;
-      case '÷':
-        currentValue /= displayValue;
-        displayText.innerText = 0;
-        break;
-    }
-  }
-  return currentValue;
-}
+function calculate() {
+  let firstNumInt = parseInt(firstNum);
+  let secondNumInt = parseInt(secondNum);
+  let result;
 
+  switch (operator) {
+    case '+':
+      result = firstNumInt + secondNumInt;
+      break;
+    case '-':
+      result = firstNumInt - secondNumInt;
+      break;
+    case '×':
+      result = firstNumInt * secondNumInt;
+      break;
+    case '÷':
+      result = firstNumInt / secondNumInt;
+      break;
+  }
+
+  return result;
+}
