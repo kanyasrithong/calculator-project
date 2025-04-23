@@ -29,7 +29,7 @@ body {
   justify-content: flex-end;
   padding: 1rem;
 
-  .display-value {
+  .display-text {
     color: white;
     font-family: "Courier New", Courier, monospace;
     font-size: 3rem;
