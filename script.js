@@ -8,80 +8,24 @@ const displayText = document.querySelector('.display-text');
 
 const clear = document.querySelector('.clear');
 const back = document.querySelector('.back');
-
-const zero = document.querySelector('.zero');
-const one = document.querySelector('.one');
-const two = document.querySelector('.two');
-const three = document.querySelector('.three');
-const four = document.querySelector('.four');
-const five = document.querySelector('.five');
-const six = document.querySelector('.six');
-const seven = document.querySelector('.seven');
-const eight = document.querySelector('.eight');
-const nine = document.querySelector('.nine');
-
-const plus = document.querySelector('.plus');
-const minus = document.querySelector('.minus');
-const multiply = document.querySelector('.multiply');
-const divide = document.querySelector('.divide');
 const equal = document.querySelector('.equal');
 
-// Add event listeners
-zero.addEventListener('click', () => {
-  inputNumber(zero);
+// Add event listeners for number buttons
+const numButtons = document.querySelectorAll('button.number');
+numButtons.forEach(numButton => {
+  numButton.addEventListener('click', () => {
+    inputNumber(numButton);
+  });
+});
+
+// Add event listeners for operation buttons
+const opButtons = document.querySelectorAll('button.op');
+opButtons.forEach(opButton => {
+  opButton.addEventListener('click', () => {
+    operator = opButton.innerText;
+    console.log(opButton.innerText);
+  })
 })
-
-one.addEventListener('click', function() {
-  inputNumber(one);
-});
-
-two.addEventListener('click', function() {
-  inputNumber(two);
-});
-
-three.addEventListener('click', function() {
-  inputNumber(three);
-});
-
-four.addEventListener('click', function() {
-  inputNumber(four);
-});
-
-five.addEventListener('click', function() {
-  inputNumber(five);
-});
-
-six.addEventListener('click', function() {
-  inputNumber(six);
-});
-
-seven.addEventListener('click', function() {
-  inputNumber(seven);
-});
-
-eight.addEventListener('click', function() {
-  inputNumber(eight);
-});
-
-nine.addEventListener('click', function() {
-  inputNumber(nine);
-});
-
-plus.addEventListener('click', function() {
-  operator = plus.innerText;
-});
-
-minus.addEventListener('click', function() {
-  operator = minus.innerText;
-});
-
-multiply.addEventListener('click', function() {
-  operator = multiply.innerText;
-});
-
-divide.addEventListener('click', function() {
-  operator = divide.innerText;
-});
 
 equal.addEventListener('click', function() {
   // If you don't have an operation type or first number, the equal button should do nothing
